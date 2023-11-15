@@ -51,7 +51,9 @@ h2 {
 .cards::-webkit-scrollbar {
     display: none;
 }
-.card {
+.card1 {
+    /* width:350px;
+    height:500px; */
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -60,6 +62,9 @@ h2 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
     scroll-snap-align: start;
     transition: all 0.2s;
+    cursor: pointer;
+  
+    
 }
 
 .card:hover {

@@ -1,44 +1,136 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./recommendStyles.css";
+import "../Artists/Artists.css";
 import { Context } from "../../../context";
+import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Recommend = () => {
-  return (
-    <div>
-      <h1 className="recommend-header">Recommends for You</h1>
+  const [dataRecommend, setDataRecommend] = useState([]);
+  const accessToken = useContext(Context);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let username = location.state ? location.state.username : null;
 
-      <div class="container">
-        <ul class="cards">
-          <li class="card">
-            <div>
-              <h3 class="card-title">Service 1</h3>
-              <div class="card-content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </div>
-            </div>
-            <div class="card-link-wrapper">
-              <a href="" class="card-link">
-                Learn More
-              </a>
-            </div>
-          </li>
-          <li class="card">
-            <div>
-              <h3 class="card-title">Service 2</h3>
-              <div class="card-content">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                  repudiandae magnam harum natus fuga et repellat in maiores.
-                </p>
-              </div>
-            </div>
-            <div class="card-link-wrapper">
-              <a href="" class="card-link">
-                Learn More
-              </a>
-            </div>
-          </li>
-          <li class="card">
+  // Example list of album IDs
+  const albumIds = [
+    "2JTcQYxkWCph2DFYHljgnS",
+    "1Qr5Gq4WF1uaiIZkKIKgNN",
+    "1D5M0OXMaT1dV9MADSPgIg",
+    "5uMlNAH5rFVq9o5sFogsNh",
+    // "4f9WYw6XMUlo3O9dJ15HvP",
+    // "47JGljO2q9Hig0pG3agarw",
+    // "0qOjC3f9sN8JWr1SOz7m9Z",
+    "0qOjC3f9sN8JWr1SOz7m9Z",
+    "7zAITOBN6eG4UBm4IapAik",
+    "72CICJmh1qsqSPbU4xA7Le",
+    "0iMTvKrZB1huRE2brpoQnu",
+    "4f9WYw6XMUlo3O9dJ15HvP",
+  ];
+  const albumIdsString = albumIds.join(",");
+
+  const parameters = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + accessToken,
+    },
+  };
+
+  useEffect(() => {
+    if (accessToken) {
+      fetch(
+        `https://api.spotify.com/v1/albums?ids=${albumIdsString}`,
+        parameters
+      )
+        .then((res) => res.json())
+        .then((data) => setDataRecommend(data.albums))
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [accessToken]);
+  // useEffect(() => {
+  //   fetch(`https://api.spotify.com/v1/albums?ids=${albumIdsString}`, parameters)
+  //     .then((res) => res.json())
+  //     .then((data) => setDataRecommend(data.albums));
+  // }, []);
+
+  return (
+    <>
+      <div>
+        <h1 className="artist-header">New Releases</h1>
+        <div className="container">
+          <ul className="cards">
+            {dataRecommend &&
+              dataRecommend.length > 0 &&
+              dataRecommend.map((album) => (
+                <>
+                  <div>
+                    <a
+                      onClick={() => {
+                        navigate(`/home/new/${album.id}`, {
+                          state: { username },
+                        });
+                      }}
+                    >
+                      {" "}
+                      <li className="card1" key={album.id}>
+                        <img src={album.images[0]?.url} alt={album.name} />
+                      </li>
+                    </a>
+                    <h1 className="artist-name">{album.name}</h1>
+                  </div>
+                </>
+              ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Recommend;
+
+// <div>
+//   <h1 className="recommend-header">Recommends for You</h1>
+
+//   <div class="container">
+//     <ul class="cards">
+//       {dataRecommend &&
+//         dataRecommend.length > 0 &&
+//         dataRecommend.map((items) => {
+//           return (
+//             <>
+//               <div>
+//                 <li class="card1">
+//                   <img src={items.images[0].url} alt=""></img>
+//                 </li>
+//                 <h1 className="artist-name">{items.name}</h1>
+//               </div>
+//             </>
+//             // <li class="card">
+//             //   <div>
+//             //     <div class="card-content">
+//             //       <p>
+//             //         Lorem ipsum dolor sit amet consectetur adipisicing elit.
+//             //         Ab repudiandae magnam harum natus fuga et repellat in
+//             //         maiores.
+//             //       </p>
+//             //       <img src={items.images[0].url}></img>
+//             //     </div>
+//             //     <h3 class="card-title">{items.name}</h3>
+//             //   </div>
+//             //   <div class="card-link-wrapper">
+//             //     <a href="" class="card-link">
+//             //       Learn More
+//             //     </a>
+//             //   </div>
+//             // </li>
+//           );
+//         })}
+{
+  /* <li class="card">
             <div>
               <h3 class="card-title">Service 3</h3>
               <div class="card-content">
@@ -200,11 +292,12 @@ const Recommend = () => {
                 Learn More
               </a>
             </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
+          </li> */
+}
+//       </ul>
+//     </div>
+//   </div>
+// );
+// };
 
-export default Recommend;
+// export default Recommend;

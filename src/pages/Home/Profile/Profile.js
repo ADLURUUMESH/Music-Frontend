@@ -4,7 +4,7 @@ import Welcome from "../Welcome/welcome";
 import Recommend from "../Recommend/recommend";
 import { useNavigate, useLocation } from "react-router-dom";
 import Artists from "../Artists/Artists";
-import "../../../images/profile.png";
+// import "../../../images/profile.png";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./Profile.css";
 import axios from "axios";
@@ -272,7 +272,7 @@ const Profile = () => {
               <div>
                 {showUpdateForm ? (
                   <Card
-                    className="img"
+                    className="img11"
                     style={{
                       width: "30rem",
                       marginTop: "-100px",
@@ -285,17 +285,16 @@ const Profile = () => {
                       color: "black",
                     }}
                   >
-                    <Card.Title>
-                      <center>
-                        <h4>Update Form</h4>
-                      </center>
-                    </Card.Title>
                     <Card.Body>
+                      <center>
+                        <h4 style={{ fontWeight: "bold" }}>Update Form</h4>
+                      </center>
                       <Form
                         className="mt-4"
                         noValidate
                         validated={validated}
                         onSubmit={handleUpdateSubmit}
+                        style={{ fontWeight: "bold" }}
                       >
                         <Form.Group
                           className="mb-3"
@@ -305,7 +304,9 @@ const Profile = () => {
                           <Form.Control type="text" value={username} readOnly />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                          <Form.Label>Name:</Form.Label>
+                          <Form.Label style={{ fontWeight: "bold" }}>
+                            Name:
+                          </Form.Label>
                           <Form.Control
                             controlId="validationCustom01"
                             type="text"
@@ -322,7 +323,9 @@ const Profile = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                          <Form.Label>Email:</Form.Label>
+                          <Form.Label style={{ fontWeight: "bold" }}>
+                            Email:
+                          </Form.Label>
                           <Form.Control
                             type="text"
                             value={data.email}
@@ -330,7 +333,9 @@ const Profile = () => {
                           />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                          <Form.Label>Password:</Form.Label>
+                          <Form.Label style={{ fontWeight: "bold" }}>
+                            Password:
+                          </Form.Label>
                           <Form.Control
                             controlId="validationCustom02"
                             type="password"
@@ -346,7 +351,10 @@ const Profile = () => {
                             Please choose a Password.
                           </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group className="mb-3">
+                        <Form.Group
+                          style={{ fontWeight: "bold" }}
+                          className="mb-3"
+                        >
                           <Form.Label>Confirm Password:</Form.Label>
                           <Form.Control
                             controlId="validationCustom03"
@@ -385,7 +393,7 @@ const Profile = () => {
                   </Card>
                 ) : (
                   <Card
-                    className="img"
+                    className="img11"
                     style={{
                       zIndex: 0,
                       width: "30rem",
@@ -402,7 +410,7 @@ const Profile = () => {
                     <Card.Body>
                       <Card.Title>
                         <center>
-                          <h3>Profile</h3>
+                          <h4 style={{ fontWeight: "bold" }}>Profile</h4>
                         </center>
                       </Card.Title>
                     </Card.Body>

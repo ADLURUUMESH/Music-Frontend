@@ -127,7 +127,7 @@ function AllSe() {
       <Container style={{ textAlign: "center", fontSize: "20px" }}>
         <Button
           onClick={() => {
-            navigate("/search", { state: { username } });
+            navigate("/home", { state: { username } });
           }}
           style={{ fontSize: "20px" }}
         >
