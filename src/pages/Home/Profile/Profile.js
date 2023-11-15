@@ -112,7 +112,7 @@ const Profile = () => {
     } else {
       setValidated(true);
       event.preventDefault();
-      if (updatedConf === updatedPass && updatedPass.length > 8) {
+      if (updatedConf === updatedPass || updatedPass.length > 8) {
         updatedData = {
           username: data.username,
           name: updatedName,
