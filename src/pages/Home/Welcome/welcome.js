@@ -21,10 +21,9 @@ const Welcome = () => {
     const obj = { username };
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          `http://localhost:5000/Signup-Login/data`,
-          obj
-        );
+        const url = "https://music-backend-kinl.onrender.com/Signup-Login/data";
+        //const url="http://localhost:5000/Signup-Login/data";
+        const response = await axios.post(url, obj);
 
         setData(response.data);
         setName(response.data.name);
