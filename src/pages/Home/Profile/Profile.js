@@ -70,8 +70,8 @@ const Profile = () => {
 
     if (shouldDelete) {
       const obj1 = { username };
-      const url = `http://localhost:5000/Signup-Login/delete`;
-      //const url = `https://react-backend-production-62ec.up.railway.app/signup/update/${username}`;
+      // const url = `http://localhost:5000/Signup-Login/delete`;
+      const url = `https://music-backend-kinl.onrender.com/Signup-Login/delete`;
       axios
         .delete(url, {
           data: {
@@ -112,7 +112,7 @@ const Profile = () => {
     } else {
       setValidated(true);
       event.preventDefault();
-      if (updatedConf === updatedPass || updatedPass.length > 8) {
+      if (updatedConf === updatedPass && updatedPass.length > 8) {
         updatedData = {
           username: data.username,
           name: updatedName,
@@ -120,9 +120,9 @@ const Profile = () => {
           password: updatedPass,
         };
         console.log(updatedData);
-        const url = "http://localhost:5000/Signup-Login/update"; // Update the URL
-        // const url =
-        //   "https://react-backend-production-62ec.up.railway.app/signup/update";
+        // const url = "http://localhost:5000/Signup-Login/update"; // Update the URL
+        const url =
+          "https://music-backend-kinl.onrender.com/Signup-Login/update";
         axios
           .post(url, updatedData)
           .then((res) => {
