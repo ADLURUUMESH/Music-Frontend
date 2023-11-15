@@ -1,55 +1,54 @@
-span h1{
-    font-family: 'Poppins',sans-serif;
+span h1 {
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
 }
-.color{
-    background: 
-      /* linear-gradient(to right, #cf1201, #fb7462); */
-      linear-gradient(to right, #ca6c2a, #f6a461);
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-     
 
-              /* box-shadow: 0px 0px 7px 0px rgba(0,0,0,1);
+.color {
+    background:
+        /* linear-gradient(to right, #cf1201, #fb7462); */
+        linear-gradient(to right, #ca6c2a, #f6a461);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+
+    /* box-shadow: 0px 0px 7px 0px rgba(0,0,0,1);
               -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,1);
               -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,1); */
-              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    height:100vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 100vh;
     position: fixed;
 }
 
-.items-nav{
+.items-nav {
     font-size: 20px;
     color: #ffffff;
-    margin-left:30px;
+    margin-left: 30px;
 }
-.box{
-    width:200px;
-    height:2px;
+
+.box {
+    width: 200px;
+    height: 2px;
     border-bottom: 2px solid #ffffff;
     border-radius: 30%;
     /* background-color: #ffffff; */
-    opacity:.9;
-    margin:10px 0px 10px 0px;
+    opacity: .9;
+    margin: 10px 0px 10px 0px;
 }
 
-.anchor:hover{
+.anchor:hover {
     font-size: 30px;
     transition: 0.2s;
     transition-timing-function: ease-in-out;
-
-    
-    
 }
 
-.margin{
+.margin {
 
     margin-left: 265px;
-    background: 
-    /* linear-gradient(to right, #cf1201, #fb7462); */
-    linear-gradient(to left, #ca6c2a, #f6a461);
+    background:
+        /* linear-gradient(to right, #cf1201, #fb7462); */
+        linear-gradient(to left, #ca6c2a, #f6a461);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-position: fixed;
+    position: fixed;
 }

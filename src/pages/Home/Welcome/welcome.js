@@ -10,19 +10,20 @@ const Welcome = () => {
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    if (username === null) {
-      navigate("/");
-    }
-  }, [username]);
+  // useEffect(() => {
+  //   if (username === null) {
+  //     navigate("/");
+  //   }
+  // }, [username]);
 
   useEffect(() => {
     // Fetch user history data from your backend
+    console.log(username);
     const obj = { username };
     const fetchData = async () => {
       try {
-        const url = "https://music-backend-kinl.onrender.com/Signup-Login/data";
-        //const url="http://localhost:5000/Signup-Login/data";
+        // const url = "https://music-backend-kinl.onrender.com/Signup-Login/data";
+        const url = "http://localhost:5000/Signup-Login/data";
         const response = await axios.post(url, obj);
 
         setData(response.data);
