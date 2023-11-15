@@ -1,0 +1,19 @@
+
+.welcome{
+    /* background-color: antiquewhite; */
+}
+.text-welcome h1{
+    font-family: 'poppins',sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    color:#ffffff;
+    display: flex;
+    justify-content: flex-end;
+    
+
+}
+
+
+/* .greeting{
+    margin-left:420px !important;
+} */

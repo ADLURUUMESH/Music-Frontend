@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #dad9d9;
+  /* background: #dad9d9; */
   margin: 8px;
 }
 
@@ -57,7 +57,7 @@
 .wrapper h2::before{
   content: '';
   position: absolute;
-  left: 190px;
+  left: 147px;
   bottom: -20px;
   height: 3px;
   width: 28px;

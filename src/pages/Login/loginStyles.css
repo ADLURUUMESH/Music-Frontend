@@ -4,6 +4,12 @@ body {
     /* display: flex; */
     /* min-height: 90vh; */
   }
+  .main-nav{
+    margin-bottom: 0px !important;
+    margin-top: 16px;
+    text-align: center;
+    align-items: center;
+  }
   /* header */
   .nav-bar{
     /* background-color:#cf1201;  */
@@ -43,8 +49,8 @@ body {
   .login {
     color: white;
     background: #136a8a;
-    width:310px;
-    height: 320px;
+    width:413px;
+    height: 370px;
     background: 
       -webkit-linear-gradient(to right, #267871, #136a8a);
     background: 

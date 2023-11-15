@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signinstyles.css";
-import FontAwesome from "react-fontawesome";
+
 import { Alert } from "react-st-modal";
-import { Dialog } from "./dialog";
+
 import axios from "axios";
 const SigninForm = () => {
   const [name, setName] = useState("");
@@ -45,11 +45,13 @@ const SigninForm = () => {
     if (password === confirmPassword) {
       console.log(data);
       const url = "https://music-backend-kinl.onrender.com/Signup-Login/create";
+      // const url = "http://localhost:5000/Signup-Login/create";
+
       axios
         .post(url, data)
         .then((res) => {
           if (res.status === 200) {
-            const result = Alert(
+            Alert(
               "Redirected to Login page",
               "Created Account Successfully..!"
             );
@@ -64,10 +66,10 @@ const SigninForm = () => {
         .catch((err) => {
           if (err.response && err.response.status === 400) {
             // alert(err.response.data); // Display the response data from the server
-            const result = Alert(err.response.data, "");
+            Alert(err.response.data, "");
           } else {
             // alert("An error occurred: " + err.message);
-            const result = Alert(err.message, "");
+            Alert(err.message, "");
           }
         });
     } else {
