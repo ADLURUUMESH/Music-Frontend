@@ -131,6 +131,7 @@ const Profile = () => {
             } else {
               Alert("Profile update failed", "");
             }
+            window.location.reload();
           })
           .catch((err) => {
             Alert(
@@ -138,7 +139,6 @@ const Profile = () => {
               ""
             );
           });
-        window.location.reload();
       } else {
         Alert(
           "Passwords not matched or Password is less than 8 characters",
