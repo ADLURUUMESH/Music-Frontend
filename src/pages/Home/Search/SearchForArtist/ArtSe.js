@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Search.css";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import {
   Container,
   InputGroup,
@@ -21,6 +21,7 @@ function ArtSe() {
   const [albums, setAlbums] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const artist = "artist";
   let username = location.state ? location.state.username : null;
   useEffect(() => {
     //API Access Token
@@ -73,7 +74,7 @@ function ArtSe() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.items);
         setAlbums(data.items);
       });
   }
@@ -107,12 +108,21 @@ function ArtSe() {
           {albums.map((album, i) => {
             console.log(album);
             return (
-              <Card key={i} className="card">
-                <Card.Img src={album.images[0].url} />
-                <Card.Body>
-                  <Card.Title>{album.name}</Card.Title>
-                </Card.Body>
-              </Card>
+              <a
+                onClick={() => {
+                  navigate(`/artist/new/${album.id}`, {
+                    state: { username },
+                  });
+                }}
+                //to={`/artist/new/${album.id}`}
+              >
+                <Card key={i} className="card">
+                  <Card.Img src={album.images[0].url} />
+                  <Card.Body>
+                    <Card.Title>{album.name}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </a>
             );
           })}
         </Row>

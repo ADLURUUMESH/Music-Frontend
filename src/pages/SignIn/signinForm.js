@@ -5,7 +5,15 @@ import "./signinstyles.css";
 import { Alert } from "react-st-modal";
 
 import axios from "axios";
+import { BeatLoader } from "react-spinners";
+// LoadingSpinner component
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 const SigninForm = () => {
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -41,6 +49,7 @@ const SigninForm = () => {
   };
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (password === confirmPassword) {
       console.log(data);
@@ -71,6 +80,9 @@ const SigninForm = () => {
             // alert("An error occurred: " + err.message);
             Alert(err.message, "");
           }
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       setError("Password doesn't matched!");
@@ -79,6 +91,7 @@ const SigninForm = () => {
   return (
     <>
       <div className="signin">
+        {loading && <LoadingSpinner />}
         <div className="wrapper">
           <h2>Create Account</h2>
           <form onSubmit={submitHandler}>

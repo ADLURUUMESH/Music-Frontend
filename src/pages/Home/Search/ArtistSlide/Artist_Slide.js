@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./album_song.css";
-import { useContext } from "react";
-import { Context } from "../../context";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { Alert } from "react-st-modal";
 
 import axios from "axios";
+import { useContext } from "react";
+import { Context } from "../../../../context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Card } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+
 import { BeatLoader } from "react-spinners";
 
-const AlbumSong = () => {
+const ArtistSlide = () => {
   const ids = useParams();
   const id = ids.id;
   const [tracks, setTracks] = useState([]);
@@ -24,7 +22,7 @@ const AlbumSong = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
-
+  let user1;
   const parameters = {
     method: "GET",
     headers: {
@@ -68,7 +66,7 @@ const AlbumSong = () => {
       id: id,
       type: "album",
     };
-    // const url = "http://localhost:5000/Fav/create";
+    //const url = "http://localhost:5000/Fav/create";
     const url = "https://music-backend-kinl.onrender.com/Fav/create";
     axios
       .post(url, data)
@@ -145,4 +143,4 @@ const AlbumSong = () => {
   );
 };
 
-export default AlbumSong;
+export default ArtistSlide;

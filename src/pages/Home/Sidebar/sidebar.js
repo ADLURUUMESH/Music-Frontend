@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./sidebar.css";
 import Welcome from "../Welcome/welcome";
 import Recommend from "../Recommend/recommend";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Artists from "../Artists/Artists";
 import Search from "../Search/Search";
 const Sidebar = () => {
@@ -60,7 +60,6 @@ const Sidebar = () => {
                 <div class="box"></div>
                 <li>
                   <a
-                    href="/search"
                     data-bs-toggle="collapse"
                     class="nav-link px-0 align-middle anchor"
                     onClick={() => handleSearch()}
@@ -73,7 +72,12 @@ const Sidebar = () => {
                 </li>
                 <div class="box"></div>
                 <li>
-                  <a href="#" class="nav-link px-0 align-middle anchor">
+                  <a
+                    onClick={() => {
+                      navigate("/favourites", { state: { username } });
+                    }}
+                    class="nav-link px-0 align-middle anchor"
+                  >
                     <i class="fs-4 bi-heart text-white"></i>{" "}
                     <span class="ms-1 d-none d-sm-inline items-nav">
                       Favourites

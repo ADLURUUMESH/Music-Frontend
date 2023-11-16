@@ -4,7 +4,6 @@ import Welcome from "../Welcome/welcome";
 import Recommend from "../Recommend/recommend";
 import { useNavigate, useLocation } from "react-router-dom";
 import Artists from "../Artists/Artists";
-// import "../../../images/profile.png";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./Profile.css";
 import axios from "axios";
@@ -12,17 +11,27 @@ import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Alert } from "react-st-modal";
 import { Form } from "react-bootstrap";
+import { BeatLoader } from "react-spinners";
+
+// LoadingSpinner component
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
+
 const Profile = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  let username = location.state ? location.state.username : null;
-  const [name, setName] = useState("");
-  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedName, setUpdatedName] = useState("");
   const [updatedPass, setUpdatedPassword] = useState("");
   const [updatedConf, setUpdatedConf] = useState("");
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let username = location.state ? location.state.username : null;
+  const [name, setName] = useState("");
+  const [data, setData] = useState([]);
 
   const handleLogout = () => {
     username = "";
@@ -42,19 +51,18 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // Fetch user history data from your backend
+    setLoading(true);
     const obj = { username };
-    console.log(username);
     const fetchData = async () => {
       try {
         const url = "https://music-backend-kinl.onrender.com/Signup-Login/data";
-        //const url="http://localhost:5000/Signup-Login/data";
         const response = await axios.post(url, obj);
-        console.log(response.data);
         setData(response.data);
         setName(response.data.name);
       } catch (error) {
         console.error("Error fetching history data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -69,9 +77,14 @@ const Profile = () => {
     );
 
     if (shouldDelete) {
+      setLoading(true);
       const obj1 = { username };
       // const url = `http://localhost:5000/Signup-Login/delete`;
-      const url = `https://music-backend-kinl.onrender.com/Signup-Login/delete`;
+      const url = "https://music-backend-kinl.onrender.com/Signup-Login/delete";
+
+      // const url1 = "http://localhost:5000/Fav/deleteAll";
+      const url1 = "https://music-backend-kinl.onrender.com/Fav/delete";
+
       axios
         .delete(url, {
           data: {
@@ -80,18 +93,47 @@ const Profile = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            const result = Alert("User deleted successfully", "");
+            Alert("User deleted successfully", "");
             navigate("/signup");
           } else if (res.status === 404) {
-            // alert("User not found");
             Alert("User not found", "");
           } else {
-            // alert("Failed to delete user");
             Alert("Failed to delete user", "");
           }
+
+          axios
+            .delete(url1, {
+              data: {
+                username: username,
+              },
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                navigate("/signup");
+              } else if (res.status === 404) {
+                Alert("User not found", "");
+              } else {
+                Alert("Failed to delete user", "");
+              }
+            })
+            .catch((err) => {
+              Alert(
+                "An error occurred while deleting the user: " + err.message,
+                ""
+              );
+            })
+            .finally(() => {
+              setLoading(false);
+            });
         })
         .catch((err) => {
-          alert("An error occurred while deleting the user: " + err.message);
+          Alert(
+            "An error occurred while deleting the user: " + err.message,
+            ""
+          );
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       // The user canceled the deletion
@@ -119,26 +161,26 @@ const Profile = () => {
           email: data.email,
           password: updatedPass,
         };
-        console.log(updatedData);
-        // const url = "http://localhost:5000/Signup-Login/update"; // Update the URL
-        const url =
-          "https://music-backend-kinl.onrender.com/Signup-Login/update";
-        axios
-          .post(url, updatedData)
-          .then((res) => {
-            if (res.status === 200) {
-              Alert("Profile updated successfully", "");
-            } else {
-              Alert("Profile update failed", "");
-            }
-            window.location.reload();
-          })
-          .catch((err) => {
-            Alert(
-              "An error occurred while updating the profile: " + err.message,
-              ""
-            );
-          });
+        const url = "http://localhost:5000/Signup-Login/update";
+        setLoading(true);
+
+        try {
+          const response = await axios.post(url, updatedData);
+          if (response.status === 200) {
+            Alert("Profile updated successfully", "");
+          } else {
+            Alert("Profile update failed", "");
+          }
+        } catch (err) {
+          Alert(
+            "An error occurred while updating the profile: " + err.message,
+            ""
+          );
+        } finally {
+          setLoading(false);
+        }
+
+        window.location.reload();
       } else {
         Alert(
           "Passwords not matched or Password is less than 8 characters",
@@ -150,6 +192,7 @@ const Profile = () => {
 
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <div class="container-fluid">
         <div class="row flex-nowrap">
           <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 color">
@@ -180,7 +223,6 @@ const Profile = () => {
                 <div class="box"></div>
                 <li>
                   <a
-                    href="/search"
                     data-bs-toggle="collapse"
                     class="nav-link px-0 align-middle anchor"
                     onClick={() => handleSearch()}
@@ -193,7 +235,12 @@ const Profile = () => {
                 </li>
                 <div class="box"></div>
                 <li>
-                  <a href="#" class="nav-link px-0 align-middle anchor">
+                  <a
+                    onClick={() => {
+                      navigate("/favourites", { state: { username } });
+                    }}
+                    class="nav-link px-0 align-middle anchor"
+                  >
                     <i class="fs-4 bi-heart text-white"></i>{" "}
                     <span class="ms-1 d-none d-sm-inline items-nav">
                       Favourites

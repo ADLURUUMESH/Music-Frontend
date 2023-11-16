@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../../context";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./MusicPlayer.css";
-const MusicPlayer = () => {
+const MusicPlayerSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
@@ -26,13 +28,13 @@ const MusicPlayer = () => {
   };
 
   useEffect(() => {
-    fetch(`https://api.spotify.com/v1/albums?ids=${ids.id}`, parameters)
+    fetch(`https://api.spotify.com/v1/tracks?ids=${ids.id}`, parameters)
       .then((res) => res.json())
-      .then((data) => setSongs(data.albums));
-  }, []);
+      .then((data) => setSongs(data.tracks));
+  }, [accessToken]);
   console.log(songs);
   return (
-    <div>
+    <div className="music-card">
       {songs &&
         songs.length > 0 &&
         songs.map((items) => {
@@ -40,27 +42,18 @@ const MusicPlayer = () => {
             <>
               <div id="rssBlock">
                 <p className="cnnContents">
-                  <span className="marqueeStyle">
-                    &nbsp;{songs[0].tracks.items[0].name}{" "}
-                  </span>
+                  <span className="marqueeStyle">&nbsp;{songs[0].name} </span>
                 </p>
               </div>
-              <div
-                className="card"
-                style={{ marginLeft: "450px", width: "19rem" }}
-              >
+              <div className="card" style={{ width: "19rem" }}>
                 <img
                   className="card-img-top"
-                  src={songs[0].images[0].url}
+                  src={songs[0].album.images[0].url}
                   alt="Card image cap"
                 />
                 <div className="card-body">
                   <p className="card-text">
-                    <audio
-                      src={songs[0].tracks.items[0].preview_url}
-                      controls
-                    />
-                    {username}
+                    <audio src={songs[0].preview_url} controls />
                   </p>
                 </div>
               </div>
@@ -71,4 +64,4 @@ const MusicPlayer = () => {
   );
 };
 
-export default MusicPlayer;
+export default MusicPlayerSearch;
