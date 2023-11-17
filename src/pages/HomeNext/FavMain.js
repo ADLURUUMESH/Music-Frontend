@@ -84,8 +84,6 @@ const FavMain = () => {
 
   const handleDelete = (id) => {
     const obj = { username, id };
-    console.log(obj);
-    // const url = `http://localhost:5000/Fav/delete`;
     const url = "https://music-backend-kinl.onrender.com/Fav/delete";
     axios
       .delete(url, {
@@ -96,8 +94,11 @@ const FavMain = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          Alert("Favourite deleted successfully", "");
-          window.location.reload();
+          // If the deletion is successful, update the state to reflect the changes
+          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+          setFavSongs((prevFavSongs) =>
+            prevFavSongs.filter((song) => song.id !== id)
+          );
         } else if (res.status === 404) {
           Alert("User not found", "");
         } else {
@@ -118,7 +119,10 @@ const FavMain = () => {
               const user = users[index];
               return (
                 <div className="table-parent">
-                  {user.type === "album" ? (
+                  {user &&
+                  user.type === "album" &&
+                  favSongs[index]?.albums &&
+                  favSongs[index]?.albums[0]?.tracks?.items ? (
                     // Rendering logic for album type
 
                     <>
@@ -134,8 +138,8 @@ const FavMain = () => {
                         </td>
                         <td className="td-table">
                           <h3 className="h3">
-                            {" "}
-                            {favSongs[index].albums[0].tracks.items[0].name}
+                            {favSongs[index]?.albums[0]?.tracks?.items[0]
+                              ?.name || "N/A"}
                           </h3>
                         </td>
                         {/* <td>{user.username}</td>
@@ -166,7 +170,7 @@ const FavMain = () => {
                         </td>
                       </tr>
                     </>
-                  ) : (
+                  ) : user && user.type === "track" && data.tracks ? (
                     // Rendering logic for track type
                     <>
                       <tr key={index}>
@@ -182,10 +186,11 @@ const FavMain = () => {
                           }
                         </td>
                         <td className="td-table">
-                          <h3 className="h3">{data.tracks[0]?.name}</h3>
+                          <h3 className="h3">
+                            {data.tracks[0]?.name || "N/A"}
+                          </h3>
                         </td>
-                        {/* <td>{user.username}</td>
-                  <td>{user.type}</td>  */}
+
                         <td className="buttons td-table">
                           <button className="btn btn-success btn-css">
                             <a
@@ -211,6 +216,12 @@ const FavMain = () => {
                           </button>
                         </td>
                       </tr>
+                    </>
+                  ) : (
+                    <>
+                      <td className="td-table">
+                        <h3 className="h3">N/A</h3>
+                      </td>
                     </>
                   )}
                 </div>
