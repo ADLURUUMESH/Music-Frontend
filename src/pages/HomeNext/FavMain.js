@@ -4,7 +4,8 @@ import axios from "axios";
 import { Context } from "../../context";
 import "./Favourites.css";
 import { Alert } from "react-st-modal";
-
+import { ListGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 const FavMain = () => {
   const [users, setUsers] = useState([]);
   const accessToken = useContext(Context);
@@ -118,114 +119,141 @@ const FavMain = () => {
             {favSongs.map((data, index) => {
               const user = users[index];
               return (
-                <div className="table-parent">
+                <>
                   {user &&
                   user.type === "album" &&
                   favSongs[index]?.albums &&
                   favSongs[index]?.albums[0]?.tracks?.items ? (
                     // Rendering logic for album type
-
-                    <>
-                      <tr key={index}>
-                        <td className="td-table">{index + 1}</td>
-                        <td>
-                          {
-                            <img
-                              src={favSongs[index].albums[0].images[2].url}
-                              alt=""
-                            />
-                          }
-                        </td>
-                        <td className="td-table">
-                          <h3 className="h3">
-                            {favSongs[index]?.albums[0]?.tracks?.items[0]
-                              ?.name || "N/A"}
-                          </h3>
-                        </td>
-                        {/* <td>{user.username}</td>
-                  <td>{user.type}</td>  */}
-                        <td className="buttons td-table">
-                          <button className="btn btn-success btn-css">
-                            <a
-                              onClick={(e) => {
-                                e.preventDefault(); // Prevent default anchor behavior
-                                navigate(
-                                  `/artist/new/${favSongs[index].albums[0].id}`,
-                                  {
-                                    state: { username },
-                                  }
-                                );
-                              }}
-                              className="text-decoration-none btn-success text-white "
-                            >
-                              Play
-                            </a>
-                          </button>
-                          <button
-                            className="btn btn-danger btn-css"
-                            onClick={() => handleDelete(user.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    </>
-                  ) : user && user.type === "track" && data.tracks ? (
-                    // Rendering logic for track type
-                    <>
-                      <tr key={index}>
-                        <td className="td-table">{index + 1}</td>
-                        <td className="td-table">
-                          {
-                            <img
-                              src={
-                                favSongs[index]?.tracks[0].album.images[2].url
+                    <ListGroup.Item
+                      key={index}
+                      style={{
+                        backgroundColor: "white",
+                        position: "relative",
+                        display: "flex", // Add flex display for better alignment
+                        alignItems: "center", // Align items vertically in the center
+                        borderRadius: "30px",
+                      }}
+                    >
+                      <h3 style={{ marginLeft: "30px", paddingRight: "10px" }}>
+                        {index + 1}
+                      </h3>
+                      <img
+                        src={favSongs[index].albums[0].images[2].url}
+                        alt=""
+                        style={{
+                          marginLeft: "40px",
+                          marginRight: "40px",
+                          borderRadius: "30%",
+                          width: "64px",
+                          height: "64px",
+                        }} // Adjust margin for the image
+                      />
+                      <h3 className="h3" style={{ paddingRight: "20px" }}>
+                        {favSongs[index]?.albums[0]?.tracks?.items[0]?.name ||
+                          "N/A"}
+                      </h3>
+                      <div
+                        style={{
+                          marginLeft: "auto",
+                          display: "flex",
+                          overflow: "hidden",
+                          marginRight: "15px",
+                        }}
+                      >
+                        {/* Move buttons to the right with margin */}
+                        <Button
+                          className="btn play ms-5 me-5"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(
+                              `/artist/new/${favSongs[index].albums[0].id}`,
+                              {
+                                state: { username },
                               }
-                              alt=""
-                            />
-                          }
-                        </td>
-                        <td className="td-table">
-                          <h3 className="h3">
-                            {data.tracks[0]?.name || "N/A"}
-                          </h3>
-                        </td>
-
-                        <td className="buttons td-table">
-                          <button className="btn btn-success btn-css">
-                            <a
-                              onClick={(e) => {
-                                e.preventDefault(); // Prevent default anchor behavior
-                                navigate(
-                                  `/track/${favSongs[index]?.tracks[0].id}`,
-                                  {
-                                    state: { username },
-                                  }
-                                );
-                              }}
-                              className="text-decoration-none btn-success text-white "
-                            >
-                              Play
-                            </a>
-                          </button>
-                          <button
-                            className="btn btn-danger btn-css"
-                            onClick={() => handleDelete(user.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    </>
+                            );
+                          }}
+                        >
+                          Play
+                        </Button>
+                        <Button
+                          className="btn delete ms me-5"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </ListGroup.Item>
+                  ) : user && user.type === "track" && data.tracks ? (
+                    <ListGroup.Item
+                      key={index}
+                      style={{
+                        backgroundColor: "white",
+                        position: "relative",
+                        display: "flex", // Add flex display for better alignment
+                        alignItems: "center", // Align items vertically in the center
+                        borderRadius: "30px",
+                      }}
+                    >
+                      <h3 style={{ marginLeft: "30px", paddingRight: "10px" }}>
+                        {index + 1}
+                      </h3>
+                      <img
+                        src={favSongs[index]?.tracks[0].album.images[2].url}
+                        alt=""
+                        style={{
+                          marginLeft: "40px",
+                          marginRight: "40px",
+                          borderRadius: "30%",
+                          width: "64px",
+                          height: "64px",
+                        }} // Adjust margin for the image
+                      />
+                      <h3 className="h3" style={{ paddingRight: "20px" }}>
+                        {data.tracks[0]?.name || "N/A"}
+                      </h3>
+                      <div
+                        style={{
+                          marginLeft: "auto",
+                          display: "flex",
+                          marginRight: "15px",
+                        }}
+                      >
+                        {/* Move buttons to the right with margin */}
+                        <Button
+                          className="btn play ms-5 me-5"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(
+                              `/track/${favSongs[index]?.tracks[0].id}`,
+                              {
+                                state: { username },
+                              }
+                            );
+                          }}
+                          style={{ marginRight: "10px" }}
+                        >
+                          Play
+                        </Button>
+                        <Button
+                          className="btn delete ms me-5"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </ListGroup.Item>
                   ) : (
-                    <>
-                      <td className="td-table">
+                    // Rendering logic for track type
+                    //
+                    // Default case when data is not available
+                    <tr key={index}>
+                      <td colSpan="4">
                         <h3 className="h3">N/A</h3>
                       </td>
-                    </>
+                    </tr>
                   )}
-                </div>
-                // </tr>
+                </>
               );
             })}
           </tbody>

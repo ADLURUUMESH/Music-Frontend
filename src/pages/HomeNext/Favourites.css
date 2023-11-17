@@ -1,51 +1,41 @@
-/* tr{
-    display:flex;
-    flex-direction: row !important;
-    justify-content: space-evenly !important;
-    align-items: flex-start !important;
-    width:700px;
-} */
-.next-container {
+.list-group-item {
   display: flex;
-  flex-direction: row;
-  /* justify-content: center;
-  align-items: center; */
-  margin-left: 250px;
-}
-
-.table-parent {
-  display: flex;
-  justify-self: center;
-  text-align: center;
-}
-
-.table-parent tr {
-  flex-direction: row;
-  width: 900px;
-  justify-content: flex-start;
-}
-
-.table-parent tr td {
-  display: flex;
-  justify-content: stretch;
   align-items: center;
-  flex: 4;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  /* Add margin for spacing between items */
 }
 
-.btn-css {
-  width: 100px;
-  height: 40px;
+.album-image {
+  width: 50px;
+  /* Set a specific width for the album image */
+  height: 50px;
+  /* Set a specific height for the album image */
+  margin-right: 10px;
+  /* Add margin for spacing between the image and text */
 }
 
-.buttons {
-  gap: 10px;
+.btn.delete {
+  background-color: red;
+  color: white;
+  box-shadow: none;
+  border: none;
 }
 
-.h3 {
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+.btn.delete:hover {
+  background-color: rgb(215, 2, 2);
+  box-shadow: none;
 }
 
-.td-table {
-  text-align: center;
+.btn.play {
+  background-color: green;
+  color: white;
+  box-shadow: none;
+  border: none;
+}
+
+.btn.play:hover {
+  background-color: darkgreen;
+  box-shadow: none;
 }
