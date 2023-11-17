@@ -1,15 +1,20 @@
-
-.welcome{
+.welcome {
     /* background-color: antiquewhite; */
 }
-.text-welcome h1{
-    font-family: 'poppins',sans-serif;
+
+.text-welcome {
+    text-shadow: 3px 2px 5px rgba(202, 108, 42, 0.53);
+
+}
+
+.text-welcome h1 {
+    font-family: 'poppins', sans-serif;
     font-size: 50px;
     font-weight: bold;
-    color:#ffffff;
+    color: #CA6C2A;
     display: flex;
     justify-content: flex-end;
-    
+
 
 }
 

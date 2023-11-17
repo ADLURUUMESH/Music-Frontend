@@ -98,26 +98,101 @@ const TrackSong = () => {
     <div>
       {loading && <LoadingSpinner />}
       <div className=" align-items-center backg">
-        <h2>{tracks.album && tracks.album.name} Songs</h2>
+        <h2
+          style={{
+            color: "#DC8441",
+            textShadow: "3px 2px 5px rgba(202, 108, 42, 0.40)",
+          }}
+        >
+          {tracks.album && tracks.album.name} Songs
+        </h2>
 
-        <div className="w-90 bg-white rounded p-3 text-align-center boxShadow">
+        <div
+          className="w-90  rounded p-3 text-align-center boxShadow"
+          style={{
+            background: "linear-gradient(to right, #DC8441, #f6a461)",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+          }}
+        >
           {!loading && tracks.album && (
-            <table className="table back">
-              <tbody>
-                <tr>
-                  <td>
-                    <p>Track No:- </p> <h5>1</h5>
+            <table
+              className="table back"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <tbody style={{ backgroundColor: "transparent" }}>
+                <tr style={{ backgroundColor: "transparent" }}>
+                  <td
+                    style={{ backgroundColor: "transparent", color: "white" }}
+                  >
+                    <p
+                      style={{
+                        color: "#522c0f",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                      }}
+                    >
+                      Track No:-{" "}
+                    </p>{" "}
+                    <h5
+                      style={{
+                        color: "white",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                      }}
+                    >
+                      &nbsp;1
+                    </h5>
                   </td>
-                  <td>
-                    <p>Track Name :- </p> <h5>{tracks.name}</h5>
+                  <td
+                    style={{ backgroundColor: "transparent", color: "white" }}
+                  >
+                    <p
+                      style={{
+                        color: "#522c0f",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                      }}
+                    >
+                      Track Name :-{" "}
+                    </p>{" "}
+                    <h5
+                      style={{
+                        color: "white",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                      }}
+                    >
+                      &nbsp;{tracks.name}
+                    </h5>
                   </td>
-                  <td>
-                    <p>Artist:- </p> <h5>{tracks.artists[0]?.name}</h5>
+                  <td
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "#522c0f",
+                    }}
+                  >
+                    <p>Artist:- </p>{" "}
+                    <h5 style={{ color: "white" }}>
+                      &nbsp;{tracks.artists[0]?.name}
+                    </h5>
                   </td>
-                  <td className="td">
+                  <td className="td" style={{ backgroundColor: "transparent" }}>
                     <button
-                      className="btn btn-success"
+                      className="btn "
                       onClick={() => handlePlayClick(tracks)}
+                      style={{
+                        backgroundColor: "white",
+                        width: "190px",
+                        fontSize: "23px",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                        color: "#DC8441",
+                        fontWeight: "bolder",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.19) 0px 3px 20px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                      }}
+                      onMouseOver={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#EDEADE")
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.backgroundColor = "white")
+                      }
                     >
                       Play
                     </button>{" "}
@@ -126,6 +201,22 @@ const TrackSong = () => {
                       onClick={() => {
                         fav(tracks.id);
                       }}
+                      style={{
+                        backgroundColor: "white",
+                        fontSize: "23px",
+                        textShadow: "3px 2px 5px rgba(255, 255, 255, 0.25)",
+                        color: "#DC8441",
+                        fontWeight: "bolder",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.19) 0px 3px 20px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                        border: "none",
+                      }}
+                      onMouseOver={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#EDEADE")
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.backgroundColor = "white")
+                      }
                     >
                       Add To Favourites
                     </button>

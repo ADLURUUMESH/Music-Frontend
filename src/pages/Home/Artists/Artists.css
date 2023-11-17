@@ -7,23 +7,24 @@
     --thumb: #edf2f4;
 }
 
-.artist-header{
-    font-family: 'poppins',sans-serif;
+.artist-header {
+    font-family: 'poppins', sans-serif;
     margin-bottom: 20px;
     margin-top: 25px;
     margin-left: 20px;
     font-size: 35px;
     font-weight: bold;
-    color:#ffffff;
-  
+    color: #CA6C2A;
+    ;
+
 }
 
 
 body {
     font: 16px / 24px "Rubik", sans-serif;
     color: var(--black);
-    background: var(--platinum);
-    
+    background: var(--dark);
+
 }
 
 .like-container {
@@ -31,7 +32,8 @@ body {
     padding: 0 15px;
     margin: 0 auto;
 }
-.smart-card{
+
+.smart-card {
     max-width: 940px !important;
 }
 
@@ -50,49 +52,64 @@ h2 {
     overflow-x: scroll;
     -ms-scroll-snap-type: x mandatory;
     scroll-snap-type: x mandatory;
+
 }
+
 .cards::-webkit-scrollbar {
     display: none;
 }
-.card-artist{
+
+.card-artist {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+    background: var(--darkorange);
+    box-sizing: border-box;
+    /* Include padding in the total width and height */
+    /* box-shadow: 0 5px 15px rgba(0, 0, 0, 15%); */
     scroll-snap-align: start;
     transition: all 0.2s;
     cursor: pointer;
-}
-.radius{
-    border-radius: 50%;
-    overflow: hidden;
-    height: 250px;
-    width: 250px;
+    border: 15px solid #DC8441;
+    /* Use outline instead of border */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
 
 }
-.radius img{
-    height:300px;
-    width:300px;
+
+.radius {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 280px;
+    width: 280px;
+
+}
+
+.radius img {
+    height: 300px;
+    width: 300px;
     border-radius: 50%;
     align-items: center;
     text-align: center;
     margin-left: -44px;
     margin-top: -30px;
+
+
 }
-.artist-name{
+
+.artist-name {
     /* overflow: auto; */
     font-size: 19px;
     margin-top: 20px;
     margin-left: -10px;
-    color:#ffffff;
-text-align: center;
-    font-family: 'Poppins',sans-serif;
+    color: #CA6C2A;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
 }
+
 .card-artist:hover {
-    color: var(--white);
+    color: var(--darkorange);
     background: var(--orange);
 }
 
@@ -120,7 +137,7 @@ text-align: center;
 }
 
 .card-artist:hover .card-link {
-    background: var(--darkorange);
+    /* background: var(--darkorange); */
 }
 
 .cards::-webkit-scrollbar {

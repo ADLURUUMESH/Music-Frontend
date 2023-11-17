@@ -56,7 +56,7 @@ const MusicPlayerSearch = () => {
   console.log(songs);
 
   return (
-    <div className="music-card">
+    <div>
       {loading && <LoadingSpinner />}
       {!loading &&
         songs &&
@@ -66,10 +66,15 @@ const MusicPlayerSearch = () => {
             <>
               <div id="rssBlock">
                 <p className="cnnContents">
-                  <span className="marqueeStyle">&nbsp;{songs[0].name} </span>
+                  <span className="marqueeStyle" style={{ color: "#DC8441" }}>
+                    &nbsp;{songs[0].name}{" "}
+                  </span>
                 </p>
               </div>
-              <div className="card" style={{ width: "19rem" }}>
+              <div
+                className="card"
+                style={{ marginLeft: "450px", width: "19rem" }}
+              >
                 <img
                   className="card-img-top"
                   src={songs[0].album.images[0].url}

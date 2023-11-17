@@ -1,13 +1,13 @@
-span h1 {
+span .h11 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  color: white;
+  color: #DC8441;
 }
 
 .color1 {
-  background:
-    /* linear-gradient(to right, #cf1201, #fb7462); */
-    linear-gradient(to right, #ca6c2a, #f6a461);
+  background: #ffffff;
+  /* linear-gradient(to right, #cf1201, #fb7462); */
+  /* linear-gradient(to right, #ca6c2a, #f6a461); */
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 
@@ -48,9 +48,9 @@ span h1 {
 .margin1 {
 
   margin-left: 265px;
-  background:
-    /* linear-gradient(to right, #cf1201, #fb7462); */
-    linear-gradient(to left, #ca6c2a, #f6a461);
+  background: #ffffff;
+  /* linear-gradient(to right, #cf1201, #fb7462); */
+  /* linear-gradient(to left, #ca6c2a, #f6a461); */
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -73,7 +73,8 @@ span h1 {
 .card:hover {
   transform: scale(1.05);
 }
-.loading-spinner{
+
+.loading-spinner {
   /* The image used */
   background-image: #bdbcbc;
 
@@ -93,9 +94,11 @@ span h1 {
 
 
 /* Position text in the middle of the page/image */
- .loading-spinner{
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+.loading-spinner {
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Black w/opacity/see-through */
   /* color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;

@@ -30,7 +30,7 @@ const Artists = () => {
   useEffect(() => {
     if (accessToken) {
       fetch(
-        `https://api.spotify.com/v1/artists?ids=4zCH9qm4R2DADamUHMCa6O%2C2FgHPfRprDaylrSRVf1UlN%2C5sSzCxHtgL82pYDvx2QyEU%2C1mYsTxnqsietFxj1OgoGbG%2C12l1SqSNsg2mI2IcXpPWjR%2C2q1LRGJHpFxovU8Tz6OgRn`,
+        `https://api.spotify.com/v1/artists?ids=4zCH9qm4R2DADamUHMCa6O%2C2FgHPfRprDaylrSRVf1UlN%2C5sSzCxHtgL82pYDvx2QyEU%2C1mYsTxnqsietFxj1OgoGbG%2C12l1SqSNsg2mI2IcXpPWjR%2C2q1LRGJHpFxovU8Tz6OgRn%2C7vk5e3vY1uw9plTHJAMwjN%2C1uNFoZAHBGtllmzznpCI3s%2C3Q80PCEUBCiRhLSWdQApNt%2C2ae6PxICSOZHvjqiCcgon8%2C3m49WVMU4zCkaVEKb8kFW7%2C5VVN3xZw1i2qihfITZlvCZ%2C6AiX12wXdXFoGJ2vk8zBjy`,
         parameters
       )
         .then((res) => res.json())

@@ -63,7 +63,7 @@ const MusicPlayer = () => {
             <>
               <div id="rssBlock">
                 <p className="cnnContents">
-                  <span className="marqueeStyle">
+                  <span className="marqueeStyle" style={{ color: "#DC8441" }}>
                     &nbsp;{songs[0].tracks.items[0].name}{" "}
                   </span>
                 </p>

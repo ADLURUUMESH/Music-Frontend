@@ -66,7 +66,16 @@ const Welcome = () => {
   }, [username]);
 
   return (
-    <div className="welcome">
+    <div
+      className="welcome"
+      style={{ display: "flex", justifyContent: "space-around" }}
+    >
+      <div className="music-icons">
+        <i
+          class="bi bi-music-note-list"
+          style={{ fontSize: "200px", color: "#dc8441" }}
+        ></i>
+      </div>
       {loading && <LoadingSpinner />}
       <div className="text-welcome">
         <h1>Welcome</h1>

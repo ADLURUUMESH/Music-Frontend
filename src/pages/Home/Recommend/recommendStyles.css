@@ -7,15 +7,15 @@
     --thumb: #edf2f4;
 }
 
-.recommend-header{
-    font-family: 'poppins',sans-serif;
+.recommend-header {
+    font-family: 'poppins', sans-serif;
     margin-bottom: 20px;
     margin-top: 25px;
     margin-left: 20px;
     font-size: 35px;
     font-weight: bold;
-    color:#ffffff;
-  
+    color: #ffffff;
+
 }
 
 
@@ -23,7 +23,7 @@ body {
     font: 16px / 24px "Rubik", sans-serif;
     color: var(--black);
     background: var(--platinum);
-    
+
 }
 
 .container {
@@ -42,29 +42,34 @@ h2 {
     grid-auto-columns: 100%;
     grid-column-gap: 10px;
     grid-auto-flow: column;
-    padding: 25px 0px;
+    padding: 20px 0px;
     list-style: none;
     overflow-x: scroll;
     -ms-scroll-snap-type: x mandatory;
     scroll-snap-type: x mandatory;
+    margin-left: 10px !important
 }
+
 .cards::-webkit-scrollbar {
     display: none;
 }
+
 .card1 {
     /* width:350px;
     height:500px; */
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: var(--white);
+    background: linear-gradient(to right, #DC8441, #f6a461);
+
+
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     scroll-snap-align: start;
     transition: all 0.2s;
     cursor: pointer;
-  
-    
+
+
 }
 
 .card:hover {

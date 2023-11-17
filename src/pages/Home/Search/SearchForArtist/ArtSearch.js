@@ -152,8 +152,15 @@ function ArtSearch() {
               }}
             >
               <span>
-                <h1 style={{ textAlign: "center", fontSize: "100px" }}>
-                  Search
+                <h1
+                  style={{
+                    textAlign: "center",
+                    fontSize: "70px",
+                    textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+                    color: "#DC8441",
+                  }}
+                >
+                  Search for Artist
                 </h1>
               </span>
               <br />

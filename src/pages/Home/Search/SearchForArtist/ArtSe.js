@@ -106,26 +106,47 @@ function ArtSe() {
     <div>
       {loading && <LoadingSpinner />}
       <Container>
-        <InputGroup className="mb-3" size="lg">
-          <FormControl
-            placeholder="Search for Artist"
-            type="input"
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center", // Horizontal center
+            textAlign: "center",
+            marginLeft: "350px",
+          }}
+        >
+          <InputGroup className="mb-3" size="lg">
+            <FormControl
+              placeholder="Search for Artist"
+              type="input"
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  search();
+                }
+              }}
+              onChange={(event) => setSearchInput(event.target.value)}
+              style={{
+                maxWidth: "400px",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+              }}
+              className="ps-4 pe-4"
+            />
+            <Button
+              onClick={(event) => {
                 search();
-              }
-            }}
-            onChange={(event) => setSearchInput(event.target.value)}
-            class="ps-4 pe-4 justify-content-center"
-          />
-          <Button
-            onClick={(event) => {
-              search();
-            }}
-          >
-            Search
-          </Button>
-        </InputGroup>
+              }}
+              style={{
+                background: "linear-gradient(to right, #DC8441, #f6a461)",
+                border: "none",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+              }}
+            >
+              Search
+            </Button>
+          </InputGroup>
+        </div>
       </Container>
 
       <Container className="card-container">
@@ -156,7 +177,14 @@ function ArtSe() {
           onClick={() => {
             navigate("/home", { state: { username } });
           }}
-          style={{ fontSize: "20px" }}
+          style={{
+            background: "linear-gradient(to right, #DC8441, #f6a461)",
+            border: "none",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+            textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+            fontSize: "20px",
+          }}
         >
           Go Back
         </Button>

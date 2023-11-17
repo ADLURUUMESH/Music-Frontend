@@ -90,50 +90,66 @@ function AllSe() {
     <div>
       {loading && <LoadingSpinner />}
       <Container>
-        <InputGroup className="mb-3" size="lg">
-          <FormControl
-            placeholder="Search for Album"
-            type="input"
-            onKeyPress={(event) => {
-              if (event.key == "Enter") {
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center", // Horizontal center
+            textAlign: "center",
+            marginLeft: "350px",
+          }}
+        >
+          <InputGroup className="mb-3" size="lg">
+            <FormControl
+              placeholder="Search for Album"
+              type="input"
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  search();
+                }
+              }}
+              onChange={(event) => setSearchInput(event.target.value)}
+              style={{
+                maxWidth: "400px",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+              }}
+              className="ps-4 pe-4"
+            />
+            <Button
+              onClick={(event) => {
                 search();
-              }
-            }}
-            onChange={(event) => setSearchInput(event.target.value)}
-          />
-          <Button
-            onClick={(event) => {
-              search();
-            }}
-          >
-            Search
-          </Button>
-        </InputGroup>
+              }}
+              style={{
+                background: "linear-gradient(to right, #DC8441, #f6a461)",
+                border: "none",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+              }}
+            >
+              Search
+            </Button>
+          </InputGroup>
+        </div>
       </Container>
       <Container className="card-container">
-        <Row style={{ marginLeft: "200px" }} className="row row-cols-4">
+        <Row className="row row-cols-4">
           {albums.map((album, i) => {
             return (
-              <div class="card" style={{ width: "18rem" }}>
-                <img class="card-img-top" src={img} alt="Card image cap" />
-                <div class="card-body">
-                  <h5 class="card-title">{album.name}</h5>
-
-                  <a href="#" class="btn btn-primary">
-                    {" "}
-                    <Button
-                      onClick={() => {
-                        console.log(album.id);
-                        navigate(`/track/${album.id}`, {
-                          state: { username },
-                        });
-                      }}
-                    >
-                      Play
-                    </Button>
-                  </a>
-                </div>
-              </div>
+              <a
+                onClick={() => {
+                  navigate(`/track/${album.id}`, {
+                    state: { username },
+                  });
+                }}
+              >
+                <Card key={i} className="card">
+                  <Card.Img src={img} />
+                  <Card.Body>
+                    <Card.Title>{album.name}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </a>
             );
           })}
         </Row>
@@ -144,7 +160,14 @@ function AllSe() {
           onClick={() => {
             navigate("/home", { state: { username } });
           }}
-          style={{ fontSize: "20px" }}
+          style={{
+            background: "linear-gradient(to right, #DC8441, #f6a461)",
+            border: "none",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+            textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+            fontSize: "20px",
+          }}
         >
           Go Back
         </Button>

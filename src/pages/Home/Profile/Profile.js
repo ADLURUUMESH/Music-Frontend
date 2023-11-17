@@ -338,6 +338,9 @@ const Profile = () => {
                       transform: "none",
                       fontSize: "20px",
                       color: "black",
+                      background: "linear-gradient(to right, #DC8441, #f6a461)",
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
                     }}
                   >
                     <Card.Body>
@@ -460,29 +463,55 @@ const Profile = () => {
                       fontSize: "20px",
                       transform: "none",
                       color: "black",
+                      background: "linear-gradient(to right, #DC8441, #f6a461)",
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
                     }}
                   >
-                    <Card.Body>
+                    <Card.Body style={{ borderRadius: "20px" }}>
                       <Card.Title>
                         <center>
-                          <h4 style={{ fontWeight: "bold" }}>Profile</h4>
+                          <h4
+                            style={{
+                              fontWeight: "bold",
+                              borderRadius: "20px",
+                            }}
+                          >
+                            Profile
+                          </h4>
                         </center>
                       </Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
+                      <ListGroup.Item
+                        style={{
+                          borderRadius: "20px",
+                        }}
+                      >
                         <span style={{ fontWeight: "bold" }}>User Id:</span>{" "}
                         {data._id}
                       </ListGroup.Item>
-                      <ListGroup.Item>
+                      <ListGroup.Item
+                        style={{
+                          borderRadius: "20px",
+                        }}
+                      >
                         <span style={{ fontWeight: "bold" }}>Username:</span>{" "}
                         {data.username}
                       </ListGroup.Item>
-                      <ListGroup.Item>
+                      <ListGroup.Item
+                        style={{
+                          borderRadius: "20px",
+                        }}
+                      >
                         <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
                         {data.name}
                       </ListGroup.Item>
-                      <ListGroup.Item>
+                      <ListGroup.Item
+                        style={{
+                          borderRadius: "20px",
+                        }}
+                      >
                         <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
                         {data.email}
                       </ListGroup.Item>

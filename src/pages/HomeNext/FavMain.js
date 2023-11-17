@@ -128,9 +128,10 @@ const FavMain = () => {
       <div className="next-container">
         <table className="table">
           <tbody>
+            <hr />
             <ListGroup.Item
               style={{
-                background: "linear-gradient(to left, #ca6c2a, #f6a461)",
+                // background: "linear-gradient(to bottom, white, #F9F6EE)",
                 position: "relative",
                 display: "flex", // Add flex display for better alignment
                 alignItems: "center", // Align items vertically in the center
@@ -141,6 +142,8 @@ const FavMain = () => {
                   marginLeft: "10px",
                   paddingRight: "10px",
                   background: "transparent",
+                  fontWeight: "bold",
+                  fontSize: "20px",
                 }}
               >
                 Track No.
@@ -150,6 +153,8 @@ const FavMain = () => {
                   background: "transparent",
                   marginLeft: "200px",
                   marginRight: "40px",
+                  fontWeight: "bold",
+                  fontSize: "20px",
                 }}
               >
                 Song name
@@ -157,7 +162,9 @@ const FavMain = () => {
               <h3
                 style={{
                   background: "transparent",
-                  marginLeft: "350px",
+                  marginLeft: "320px",
+                  fontWeight: "bold",
+                  fontSize: "20px",
                 }}
               >
                 Play
@@ -165,16 +172,20 @@ const FavMain = () => {
               <h3
                 style={{
                   background: "transparent",
-                  marginRight: "40px",
+                  marginRight: "80px",
+                  fontWeight: "bold",
+                  fontSize: "20px",
                 }}
               >
                 Remove
               </h3>
             </ListGroup.Item>
+
             {favSongs.map((data, index) => {
               const user = users[index];
               return (
                 <>
+                  <hr />
                   {user &&
                   user.type === "album" &&
                   favSongs[index]?.albums &&
@@ -184,10 +195,11 @@ const FavMain = () => {
                       key={index}
                       style={{
                         background:
-                          "linear-gradient(to right, #ca6c2a, #f6a461)",
+                          "linear-gradient(to bottom, white, #F9F6EE)",
                         position: "relative",
                         display: "flex", // Add flex display for better alignment
                         alignItems: "center", // Align items vertically in the center
+                        fontSize: "20px",
                       }}
                     >
                       <h3
@@ -195,6 +207,7 @@ const FavMain = () => {
                           marginLeft: "30px",
                           marginRight: "200px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {index + 1}
@@ -216,6 +229,7 @@ const FavMain = () => {
                         style={{
                           paddingRight: "20px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {favSongs[index]?.albums[0]?.tracks?.items[0]?.name ||
@@ -228,11 +242,13 @@ const FavMain = () => {
                           overflow: "hidden",
                           marginRight: "15px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {/* Move buttons to the right with margin */}
                         <Button
                           className="btn play ms-5 me-5"
+                          style={{ width: "100px" }}
                           onClick={(e) => {
                             e.preventDefault();
                             navigate(
@@ -246,6 +262,7 @@ const FavMain = () => {
                           Play
                         </Button>
                         <Button
+                          style={{ width: "100px" }}
                           className="btn delete ms me-5"
                           onClick={() => handleDelete(user.id)}
                         >
@@ -258,7 +275,7 @@ const FavMain = () => {
                       key={index}
                       style={{
                         background:
-                          "linear-gradient(to right, #ca6c2a, #f6a461)",
+                          "linear-gradient(to bottom, white, #F9F6EE)",
                         position: "relative",
                         display: "flex", // Add flex display for better alignment
                         alignItems: "center", // Align items vertically in the center
@@ -269,6 +286,7 @@ const FavMain = () => {
                           marginLeft: "30px",
                           marginRight: "200px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {index + 1}
@@ -290,6 +308,7 @@ const FavMain = () => {
                         style={{
                           paddingRight: "20px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {data.tracks[0]?.name || "No Favourites"}
@@ -300,6 +319,7 @@ const FavMain = () => {
                           display: "flex",
                           marginRight: "15px",
                           background: "transparent",
+                          fontSize: "20px",
                         }}
                       >
                         {/* Move buttons to the right with margin */}
@@ -314,11 +334,12 @@ const FavMain = () => {
                               }
                             );
                           }}
-                          style={{ marginRight: "10px" }}
+                          style={{ marginRight: "10px", width: "100px" }}
                         >
                           Play
                         </Button>
                         <Button
+                          style={{ width: "100px" }}
                           className="btn delete ms me-5"
                           onClick={() => handleDelete(user.id)}
                         >

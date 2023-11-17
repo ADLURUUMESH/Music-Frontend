@@ -139,10 +139,18 @@ function Search() {
               }}
             >
               <span>
-                <h1 style={{ textAlign: "center", fontSize: "100px" }}>
+                <h1
+                  class="h11"
+                  style={{
+                    textAlign: "center",
+                    fontSize: "100px",
+                    textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+                  }}
+                >
                   Search
                 </h1>
               </span>
+              <hr />
               <br />
               <br />
               <br />
@@ -153,22 +161,35 @@ function Search() {
                   onClick={() => {
                     navigate("/artsearch", { state: { username } });
                   }}
+                  style={{
+                    background: "linear-gradient(to right, #DC8441, #f6a461)",
+                    border: "none",
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                    textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+                  }}
                 >
                   <span>
                     <h1>For Artists</h1>
                   </span>
                 </Button>{" "}
                 <Button
-                  variant="danger"
                   className="ms-5"
                   onClick={() => {
                     navigate("/allsearch", { state: { username } });
+                  }}
+                  style={{
+                    background: "linear-gradient(to right, #DC8441, #f6a461)",
+                    border: "none",
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                    textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
                   }}
                 >
                   <span>
                     <h1>For Albums</h1>
                   </span>
-                </Button>{" "}
+                </Button>
               </div>
             </div>
           </div>

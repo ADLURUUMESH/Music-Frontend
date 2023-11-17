@@ -140,8 +140,15 @@ const Sidebar = () => {
               }}
             >
               <span>
-                <h1 style={{ textAlign: "center", fontSize: "100px" }}>
-                  Favourites
+                <h1
+                  style={{
+                    textAlign: "center",
+                    fontSize: "90px",
+                    textShadow: "3px 2px 5px rgba(202, 108, 42, 0.53)",
+                    color: "#DC8441",
+                  }}
+                >
+                  My Favourites
                 </h1>
               </span>
               <FavMain />

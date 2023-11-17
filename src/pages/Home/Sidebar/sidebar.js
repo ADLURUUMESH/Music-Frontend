@@ -47,7 +47,14 @@ const Sidebar = () => {
                 class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none anchor"
               >
                 <span class="fs-5 d-none d-sm-inline">
-                  <h1>VibeVerse</h1>
+                  <h1
+                    style={{
+                      textShadow:
+                        "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                    }}
+                  >
+                    VibeVerse
+                  </h1>
                 </span>
               </a>
               <ul
@@ -62,7 +69,15 @@ const Sidebar = () => {
                     class="nav-link align-middle px-0 anchor"
                   >
                     <i class="fs-4 bi-house text-white"></i>{" "}
-                    <span class="ms-1 d-none d-sm-inline items-nav">Home</span>
+                    <span
+                      class="ms-1 d-none d-sm-inline items-nav"
+                      style={{
+                        textShadow:
+                          "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                      }}
+                    >
+                      Home
+                    </span>
                   </a>
                 </li>
                 <div class="box"></div>
@@ -73,7 +88,13 @@ const Sidebar = () => {
                     onClick={() => handleSearch()}
                   >
                     <i class="fs-4 bi-search text-white"></i>{" "}
-                    <span class="ms-1 d-none d-sm-inline items-nav">
+                    <span
+                      class="ms-1 d-none d-sm-inline items-nav"
+                      style={{
+                        textShadow:
+                          "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                      }}
+                    >
                       Search
                     </span>{" "}
                   </a>
@@ -87,7 +108,13 @@ const Sidebar = () => {
                     class="nav-link px-0 align-middle anchor"
                   >
                     <i class="fs-4 bi-heart text-white"></i>{" "}
-                    <span class="ms-1 d-none d-sm-inline items-nav">
+                    <span
+                      class="ms-1 d-none d-sm-inline items-nav"
+                      style={{
+                        textShadow:
+                          "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                      }}
+                    >
                       Favourites
                     </span>
                   </a>
@@ -100,7 +127,13 @@ const Sidebar = () => {
                     onClick={() => handleProfile()}
                   >
                     <i class="fs-4 bi-person text-white"></i>{" "}
-                    <span class="ms-1 d-none d-sm-inline items-nav">
+                    <span
+                      class="ms-1 d-none d-sm-inline items-nav"
+                      style={{
+                        textShadow:
+                          "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                      }}
+                    >
                       Profile
                     </span>
                   </a>
@@ -125,7 +158,13 @@ const Sidebar = () => {
                     class="rounded-circle"
                   /> */}
                   <i class="fs-4 bi bi-box-arrow-left"></i>
-                  <span class="d-none d-sm-inline mx-1 items-nav">
+                  <span
+                    class="d-none d-sm-inline mx-1 items-nav"
+                    style={{
+                      textShadow:
+                        "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                    }}
+                  >
                     &nbsp;Log Out
                   </span>
                 </a>
@@ -145,7 +184,10 @@ const Sidebar = () => {
               }}
             >
               <Welcome />
+
+              <hr style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} />
               <Recommend />
+              <hr style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} />
               <Artists />
             </div>
           </div>

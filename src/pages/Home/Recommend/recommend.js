@@ -35,6 +35,11 @@ const Recommend = () => {
     "72CICJmh1qsqSPbU4xA7Le",
     "0iMTvKrZB1huRE2brpoQnu",
     "4f9WYw6XMUlo3O9dJ15HvP",
+    "6KKqrNC6yWb405hpsrcxMa",
+    "7Cz9TMxapJs5HgAP3QHBJo",
+    "3lnOgTbiGMIvcZhvqBkHDa",
+    "6IKZJLQIyKWHYk9iarEI0W",
+    "75cyVUKLaK7KZKVrLYBjbM",
   ];
   const albumIdsString = albumIds.join(",");
 
