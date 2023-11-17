@@ -161,7 +161,10 @@ const Profile = () => {
           email: data.email,
           password: updatedPass,
         };
-        const url = "http://localhost:5000/Signup-Login/update";
+        // const url = "http://localhost:5000/Signup-Login/update";
+        const url =
+          "https://music-backend-kinl.onrender.com/Signup-Login/update";
+
         setLoading(true);
 
         try {
