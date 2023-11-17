@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "../../Search/Search.css";
 import ArtSe from "./ArtSe";
+import { BeatLoader } from "react-spinners";
+
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 
 function ArtSearch() {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a delay for demonstration purposes
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    // Clear the timeout on component unmount
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleProfile = () => {
     navigate("/profile", { state: { username } });
@@ -98,7 +123,7 @@ function ArtSearch() {
               </ul>
               <hr />
               <div class="dropdown pb-4">
-                <div class="box" style={{ marginBottom: "10px" }}></div>
+                {loading && <LoadingSpinner />}
                 <a
                   class="d-flex align-items-center text-white text-decoration-none anchor"
                   aria-expanded="false"
@@ -106,13 +131,6 @@ function ArtSearch() {
                     handleLogout();
                   }}
                 >
-                  {/* <img
-                src="https://github.com/mdo.png"
-                alt="hugenerd"
-                width="30"
-                height="30"
-                class="rounded-circle"
-              /> */}
                   <i class="fs-4 bi bi-box-arrow-left"></i>
                   <span class="d-none d-sm-inline mx-1 items-nav1">
                     &nbsp;Log Out
@@ -139,7 +157,7 @@ function ArtSearch() {
                 </h1>
               </span>
               <br />
-              <ArtSe />
+              {loading ? <LoadingSpinner /> : <ArtSe />}
             </div>
           </div>
         </div>

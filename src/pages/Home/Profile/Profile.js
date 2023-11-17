@@ -32,6 +32,11 @@ const Profile = () => {
   let username = location.state ? location.state.username : null;
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   const handleLogout = () => {
     username = "";

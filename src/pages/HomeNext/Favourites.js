@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Home/Sidebar/sidebar.css";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -7,6 +7,11 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   console.log(username);
   const [activeMenu, setActiveMenu] = useState("Home");
@@ -134,6 +139,11 @@ const Sidebar = () => {
                 height: "100%",
               }}
             >
+              <span>
+                <h1 style={{ textAlign: "center", fontSize: "100px" }}>
+                  Favourites
+                </h1>
+              </span>
               <FavMain />
             </div>
           </div>

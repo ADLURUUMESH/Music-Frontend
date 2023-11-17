@@ -6,18 +6,29 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MusicPlayer.css";
+import { BeatLoader } from "react-spinners";
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
+
 const MusicPlayerSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(true); // Set initial loading state to true
   let username = location.state ? location.state.username : null;
   const ids = useParams();
   const id = ids.id;
-  console.log(id);
 
   const [songs, setSongs] = useState([]);
   const accessToken = useContext(Context);
-  console.log(accessToken);
-  // Example list of album IDs
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   const parameters = {
     method: "GET",
@@ -28,14 +39,27 @@ const MusicPlayerSearch = () => {
   };
 
   useEffect(() => {
+    setLoading(true); // Set loading to true before fetching data
+
     fetch(`https://api.spotify.com/v1/tracks?ids=${ids.id}`, parameters)
       .then((res) => res.json())
-      .then((data) => setSongs(data.tracks));
+      .then((data) => {
+        setSongs(data.tracks);
+        setLoading(false); // Reset loading state after fetching data
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false); // Reset loading state in case of an error
+      });
   }, [accessToken]);
+
   console.log(songs);
+
   return (
     <div className="music-card">
-      {songs &&
+      {loading && <LoadingSpinner />}
+      {!loading &&
+        songs &&
         songs.length > 0 &&
         songs.map((items) => {
           return (
@@ -57,6 +81,7 @@ const MusicPlayerSearch = () => {
                   </p>
                 </div>
               </div>
+              {/* <button>{songs[0].next}</button> */}
             </>
           );
         })}

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "./Artists.css";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../../../context";
@@ -23,6 +23,12 @@ function ArtistNext() {
   const location = useLocation();
 
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   var searchParameters = {
     method: "GET",
@@ -50,7 +56,7 @@ function ArtistNext() {
   console.log(albums);
   return (
     <div>
-      <Container>
+      <Container className="smart-card">
         <InputGroup className="mb-3" size="lg"></InputGroup>
       </Container>
       <Container className="card-container">

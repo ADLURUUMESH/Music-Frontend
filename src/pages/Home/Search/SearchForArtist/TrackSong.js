@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "../../../HomeNext/album_song.css";
+import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../../../context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Alert } from "react-st-modal";
-
 import axios from "axios";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import ListGroup from "react-bootstrap/ListGroup";
+import { BeatLoader } from "react-spinners";
+import "../../../HomeNext/album_song.css";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { BeatLoader } from "react-spinners";
+
+// LoadingSpinner component
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 
 const TrackSong = () => {
   const ids = useParams();
   const id = ids.id;
   const [tracks, setTracks] = useState([]);
-  const [loading, setLoading] = useState(false); // Set initial loading state to false
+  const [loading, setLoading] = useState(false);
   const accessToken = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
   const parameters = {
     method: "GET",
     headers: {
@@ -32,31 +40,26 @@ const TrackSong = () => {
     },
   };
 
-  console.log("username", username);
-
   const handlePlayClick = async (users) => {
-    setLoading(true); // Set loading to true when Play button is clicked
-
+    setLoading(true);
     try {
       await navigate(`/search/new/${users.id}`, {
         state: { username },
       });
-
-      // Reset loading state once the response is received
       setLoading(false);
     } catch (error) {
       console.error("Error navigating to the next page:", error);
-      setLoading(false); // Reset loading state in case of an error
+      setLoading(false);
     }
   };
 
   const fav = (id) => {
+    setLoading(true);
     const data = {
       username: username,
       id: id,
       type: "track",
     };
-    //const url = "http://localhost:5000/Fav/create";
     const url = "https://music-backend-kinl.onrender.com/Fav/create";
     axios
       .post(url, data)
@@ -93,14 +96,11 @@ const TrackSong = () => {
 
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <div className=" align-items-center backg">
         <h2>{tracks.album && tracks.album.name} Songs</h2>
 
         <div className="w-90 bg-white rounded p-3 text-align-center boxShadow">
-          {loading && (
-            <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
-          )}
-
           {!loading && tracks.album && (
             <table className="table back">
               <tbody>
@@ -139,4 +139,5 @@ const TrackSong = () => {
     </div>
   );
 };
+
 export default TrackSong;

@@ -19,7 +19,11 @@ const Recommend = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
-
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
   // Example list of album IDs
   const albumIds = [
     "2JTcQYxkWCph2DFYHljgnS",

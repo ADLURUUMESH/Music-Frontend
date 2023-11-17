@@ -12,6 +12,12 @@ const Artists = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
   console.log(username);
   const parameters = {
     method: "GET",
@@ -41,7 +47,7 @@ const Artists = () => {
       <div>
         <h1 className="artist-header">Artists</h1>
 
-        <div className="container">
+        <div className="like-container">
           <ul className="cards">
             {data &&
               data.length > 0 &&

@@ -13,6 +13,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BeatLoader } from "react-spinners";
 
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
+
 const ArtistSlide = () => {
   const ids = useParams();
   const id = ids.id;
@@ -22,7 +28,13 @@ const ArtistSlide = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
-  let user1;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
+
   const parameters = {
     method: "GET",
     headers: {
@@ -49,54 +61,56 @@ const ArtistSlide = () => {
     }
   };
 
+  const fav = async (id) => {
+    setLoading(true); // Set loading to true when making the API request
+
+    try {
+      const data = {
+        username: username,
+        id: id,
+        type: "album",
+      };
+      const url = "https://music-backend-kinl.onrender.com/Fav/create";
+      await axios.post(url, data);
+
+      // If the request is successful, show an alert
+      Alert("Added to Favourites..!");
+    } catch (error) {
+      // If there's an error, show an alert with the error message
+      if (error.response && error.response.status === 400) {
+        Alert(error.response.data, "");
+      } else {
+        Alert(error.message, "");
+      }
+    } finally {
+      // Reset loading state after the API request is complete
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (accessToken) {
+      setLoading(true); // Set loading to true before fetching data
       fetch(`https://api.spotify.com/v1/albums?ids=${ids.id}`, parameters)
         .then((res) => res.json())
-        .then((data) => setTracks(data.albums))
+        .then((data) => {
+          setTracks(data.albums);
+          setLoading(false); // Reset loading state after fetching data
+        })
         .catch((error) => {
           console.error("Error fetching data:", error);
+          setLoading(false); // Reset loading state in case of an error
         });
     }
   }, [accessToken, ids.id]);
 
-  const fav = (id) => {
-    const data = {
-      username: username,
-      id: id,
-      type: "album",
-    };
-    //const url = "http://localhost:5000/Fav/create";
-    const url = "https://music-backend-kinl.onrender.com/Fav/create";
-    axios
-      .post(url, data)
-      .then((res) => {
-        if (res.status === 200) {
-          Alert("Added to Favourites..!");
-        }
-      })
-      .catch((err) => {
-        if (err.response && err.response.status === 400) {
-          Alert(err.response.data, "");
-        } else {
-          Alert(err.message, "");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <div className=" align-items-center backg">
         <h2>{tracks[0]?.name} Songs</h2>
 
         <div className="w-90 bg-white rounded p-3 text-align-center boxShadow">
-          {loading && (
-            <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
-          )}
-
           {!loading && (
             <table className="table back">
               <tbody>
@@ -128,7 +142,7 @@ const ArtistSlide = () => {
                             }}
                             className="text-decoration-none text-white"
                           >
-                            Add To Favourites
+                            {loading ? "Adding..." : "Add To Favourites"}
                           </Button>
                         </td>
                       </tr>

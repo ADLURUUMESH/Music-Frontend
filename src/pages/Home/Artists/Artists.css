@@ -26,10 +26,13 @@ body {
     
 }
 
-.container {
+.like-container {
     max-width: 1400px;
     padding: 0 15px;
     margin: 0 auto;
+}
+.smart-card{
+    max-width: 940px !important;
 }
 
 h2 {

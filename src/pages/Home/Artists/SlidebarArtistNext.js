@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./sidebar.css";
 
@@ -9,6 +9,11 @@ const SlidebarArtistNext = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   const [activeMenu, setActiveMenu] = useState("Home");
   const handleLogout = () => {

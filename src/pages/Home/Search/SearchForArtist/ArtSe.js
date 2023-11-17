@@ -11,18 +11,34 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import { BeatLoader } from "react-spinners";
 
 const CLIENT_ID = "053e0b7273ca40beb916b87e76914661";
 const CLIENT_SECRET = "cde581f0468b41eaa78fa7f39b7d96fe";
+
+// LoadingSpinner component
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 
 function ArtSe() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const artist = "artist";
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
+
   useEffect(() => {
     //API Access Token
     var authParameters = {
@@ -41,58 +57,66 @@ function ArtSe() {
       .then((data) => setAccessToken(data.access_token));
   }, []);
 
-  //BQBn477CxhUBbMSypfXJn8UU4FBys2JBPkbmgG6lVOinEJR2GqadVfuRFih2EE6Y7QBnCK4A7aeCCmwYVdneO94775ag0ZT1KEaDeni1nXt6zNTU0c;
-
   async function search() {
-    console.log("Search for " + searchInput);
+    try {
+      setLoading(true);
 
-    //Get request using search to get the Artist ID
-    var searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    };
-    var artistID = await fetch(
-      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        return data.artists.items[0].id;
-      });
+      console.log("Search for " + searchInput);
 
-    console.log("Artist ID is " + artistID);
+      //Get request using search to get the Artist ID
+      var searchParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      };
+      var artistID = await fetch(
+        "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
+        searchParameters
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          return data.artists.items[0].id;
+        });
 
-    var returnedAlbums = await fetch(
-      "https://api.spotify.com/v1/artists/" +
-        artistID +
-        "/albums" +
-        "?include_groups=album&market=IN&limit=50",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.items);
-        setAlbums(data.items);
-      });
+      console.log("Artist ID is " + artistID);
+
+      var returnedAlbums = await fetch(
+        "https://api.spotify.com/v1/artists/" +
+          artistID +
+          "/albums" +
+          "?include_groups=album&market=IN&limit=50",
+        searchParameters
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.items);
+          setAlbums(data.items);
+        });
+
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
   }
-  console.log(albums);
+
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
             placeholder="Search for Artist"
             type="input"
             onKeyPress={(event) => {
-              if (event.key == "Enter") {
+              if (event.key === "Enter") {
                 search();
               }
             }}
             onChange={(event) => setSearchInput(event.target.value)}
-            class="ps-5 pe-5 justify-content-center"
+            class="ps-4 pe-4 justify-content-center"
           />
           <Button
             onClick={(event) => {
@@ -103,8 +127,9 @@ function ArtSe() {
           </Button>
         </InputGroup>
       </Container>
+
       <Container className="card-container">
-        <Row style={{ marginLeft: "200px" }} className="row row-cols-4">
+        <Row className="row row-cols-4">
           {albums.map((album, i) => {
             console.log(album);
             return (
@@ -114,7 +139,6 @@ function ArtSe() {
                     state: { username },
                   });
                 }}
-                //to={`/artist/new/${album.id}`}
               >
                 <Card key={i} className="card">
                   <Card.Img src={album.images[0].url} />

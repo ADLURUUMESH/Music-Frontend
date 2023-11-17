@@ -24,12 +24,12 @@ audio{
 }
 #rssBlock{
     margin-top:30px;
-    margin-left:300px;
+    /* margin-left:300px; */
     left:300px;
     height: -80px;
     background: transparent;
-  
-    width:700px;
+  position: relative;
+    width:800px;
     overflow: hidden;
   }
   
@@ -51,7 +51,7 @@ audio{
     display:inline-block;
     /* Apply animation to this element */
     -webkit-animation: scrolling-left1 20s linear infinite;
-    animation: scrolling-left1 20s linear infinite;
+    animation: scrolling-left1 10s linear infinite;
   }
   
 

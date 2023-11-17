@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./sidebar.css";
 import Welcome from "../Welcome/welcome";
@@ -6,12 +6,20 @@ import Recommend from "../Recommend/recommend";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Artists from "../Artists/Artists";
 import Search from "../Search/Search";
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
 
   const [activeMenu, setActiveMenu] = useState("Home");
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
+
   const handleLogout = () => {
     username = "";
     navigate("/");

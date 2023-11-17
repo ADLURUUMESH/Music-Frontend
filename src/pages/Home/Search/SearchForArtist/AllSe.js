@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Context } from "../../../../context";
-
+import "../Search.css";
 import {
   Container,
   InputGroup,
@@ -11,6 +11,13 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import { BeatLoader } from "react-spinners";
+// LoadingSpinner component
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 
 // const CLIENT_ID = "053e0b7273ca40beb916b87e76914661";
 // const CLIENT_SECRET = "cde581f0468b41eaa78fa7f39b7d96fe";
@@ -18,12 +25,19 @@ import {
 function AllSe() {
   const [searchInput, setSearchInput] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [img, setImages] = useState();
   const accessToken = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   const [artistID, setArtistID] = useState("");
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   async function search() {
     //Get request using search to get the Artist ID
@@ -74,6 +88,7 @@ function AllSe() {
   const song = (album) => {};
   return (
     <div>
+      {loading && <LoadingSpinner />}
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
@@ -95,28 +110,35 @@ function AllSe() {
           </Button>
         </InputGroup>
       </Container>
-      <Container>
+      <Container className="card-container">
         <Row style={{ marginLeft: "200px" }} className="row row-cols-4">
-          {albums.map((album, i) => (
-            <Card key={i}>
-              <Card.Img src={img} />
-              <Card.Body>
-                <Card.Title>{album.name}</Card.Title>
-              </Card.Body>
-              <Button
-                onClick={() => {
-                  console.log(album.id);
-                  navigate(`/track/${album.id}`, {
-                    state: { username },
-                  });
-                }}
-              >
-                Play
-              </Button>
-            </Card>
-          ))}
+          {albums.map((album, i) => {
+            return (
+              <div class="card" style={{ width: "18rem" }}>
+                <img class="card-img-top" src={img} alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">{album.name}</h5>
+
+                  <a href="#" class="btn btn-primary">
+                    {" "}
+                    <Button
+                      onClick={() => {
+                        console.log(album.id);
+                        navigate(`/track/${album.id}`, {
+                          state: { username },
+                        });
+                      }}
+                    >
+                      Play
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </Row>
       </Container>
+
       <Container style={{ textAlign: "center", fontSize: "20px" }}>
         <Button
           onClick={() => {

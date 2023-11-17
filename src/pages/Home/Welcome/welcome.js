@@ -15,6 +15,12 @@ const Welcome = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
   const [greeting, setGreeting] = useState("");
   const [name, setName] = useState("");
   const [data, setData] = useState([]);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Search.css";
@@ -7,6 +7,11 @@ function Search() {
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
   console.log(username);
   const handleLogout = () => {
     username = "";

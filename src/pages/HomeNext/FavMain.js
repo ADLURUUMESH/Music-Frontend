@@ -6,19 +6,35 @@ import "./Favourites.css";
 import { Alert } from "react-st-modal";
 import { ListGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { BeatLoader } from "react-spinners";
+
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <BeatLoader color="#d1793b" size={30} className="BeatLoader" />
+  </div>
+);
 const FavMain = () => {
   const [users, setUsers] = useState([]);
   const accessToken = useContext(Context);
   const [favSongs, setFavSongs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   let username = location.state ? location.state.username : null;
+  useEffect(() => {
+    if (username === null) {
+      navigate("/");
+    }
+  }, [username]);
 
   useEffect(() => {
     axios
       .get(`https://music-backend-kinl.onrender.com/Fav?username=${username}`)
       .then((result) => setUsers(result.data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const fetchDataForUser = async (user) => {
@@ -66,56 +82,95 @@ const FavMain = () => {
       try {
         const dataPromises = users.map((user) => fetchDataForUser(user));
         const data = await Promise.all(dataPromises);
-
-        // Filter out null values (failed fetch requests)
         const validData = data.filter((item) => item !== null);
         setFavSongs(validData);
-        console.log(validData);
-        console.log(validData[0].albums[0].tracks.items[0].name);
       } catch (error) {
         console.error("Error fetching data for all users:", error);
       }
     };
 
-    // Check if users exist
     if (users.length > 0) {
       fetchDataForAllUsers();
     }
   }, [users, accessToken]);
 
-  const handleDelete = (id) => {
-    const obj = { username, id };
-    const url = "https://music-backend-kinl.onrender.com/Fav/delete";
-    axios
-      .delete(url, {
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
+
+      const obj = { username, id };
+      const url = "https://music-backend-kinl.onrender.com/Fav/delete";
+      await axios.delete(url, {
         data: {
           username: username,
           id: id,
         },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          // If the deletion is successful, update the state to reflect the changes
-          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-          setFavSongs((prevFavSongs) =>
-            prevFavSongs.filter((song) => song.id !== id)
-          );
-        } else if (res.status === 404) {
-          Alert("User not found", "");
-        } else {
-          Alert("Failed to delete user", "");
-        }
-      })
-      .catch((err) => {
-        Alert("An error occurred while deleting the user: " + err.message, "");
       });
-  };
 
+      // If the deletion is successful, update the state to reflect the changes
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      setFavSongs((prevFavSongs) =>
+        prevFavSongs.filter((song) => song.id !== id)
+      );
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        Alert("User not found", "");
+      } else {
+        Alert("Failed to delete user", "");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="big-container">
+      {loading && <LoadingSpinner />}
       <div className="next-container">
         <table className="table">
           <tbody>
+            <ListGroup.Item
+              style={{
+                background: "linear-gradient(to left, #ca6c2a, #f6a461)",
+                position: "relative",
+                display: "flex", // Add flex display for better alignment
+                alignItems: "center", // Align items vertically in the center
+              }}
+            >
+              <h3
+                style={{
+                  marginLeft: "10px",
+                  paddingRight: "10px",
+                  background: "transparent",
+                }}
+              >
+                Track No.
+              </h3>
+              <h3
+                style={{
+                  background: "transparent",
+                  marginLeft: "200px",
+                  marginRight: "40px",
+                }}
+              >
+                Song name
+              </h3>
+              <h3
+                style={{
+                  background: "transparent",
+                  marginLeft: "350px",
+                }}
+              >
+                Play
+              </h3>
+              <h3
+                style={{
+                  background: "transparent",
+                  marginRight: "40px",
+                }}
+              >
+                Remove
+              </h3>
+            </ListGroup.Item>
             {favSongs.map((data, index) => {
               const user = users[index];
               return (
@@ -128,30 +183,43 @@ const FavMain = () => {
                     <ListGroup.Item
                       key={index}
                       style={{
-                        backgroundColor: "white",
+                        background:
+                          "linear-gradient(to right, #ca6c2a, #f6a461)",
                         position: "relative",
                         display: "flex", // Add flex display for better alignment
                         alignItems: "center", // Align items vertically in the center
-                        borderRadius: "30px",
                       }}
                     >
-                      <h3 style={{ marginLeft: "30px", paddingRight: "10px" }}>
+                      <h3
+                        style={{
+                          marginLeft: "30px",
+                          marginRight: "200px",
+                          background: "transparent",
+                        }}
+                      >
                         {index + 1}
                       </h3>
                       <img
                         src={favSongs[index].albums[0].images[2].url}
                         alt=""
                         style={{
+                          background: "transparent",
                           marginLeft: "40px",
                           marginRight: "40px",
-                          borderRadius: "30%",
+                          borderRadius: "20px",
                           width: "64px",
                           height: "64px",
                         }} // Adjust margin for the image
                       />
-                      <h3 className="h3" style={{ paddingRight: "20px" }}>
+                      <h3
+                        className="h3"
+                        style={{
+                          paddingRight: "20px",
+                          background: "transparent",
+                        }}
+                      >
                         {favSongs[index]?.albums[0]?.tracks?.items[0]?.name ||
-                          "N/A"}
+                          "No Favourites"}
                       </h3>
                       <div
                         style={{
@@ -159,6 +227,7 @@ const FavMain = () => {
                           display: "flex",
                           overflow: "hidden",
                           marginRight: "15px",
+                          background: "transparent",
                         }}
                       >
                         {/* Move buttons to the right with margin */}
@@ -180,7 +249,7 @@ const FavMain = () => {
                           className="btn delete ms me-5"
                           onClick={() => handleDelete(user.id)}
                         >
-                          Delete
+                          Remove
                         </Button>
                       </div>
                     </ListGroup.Item>
@@ -188,14 +257,20 @@ const FavMain = () => {
                     <ListGroup.Item
                       key={index}
                       style={{
-                        backgroundColor: "white",
+                        background:
+                          "linear-gradient(to right, #ca6c2a, #f6a461)",
                         position: "relative",
                         display: "flex", // Add flex display for better alignment
                         alignItems: "center", // Align items vertically in the center
-                        borderRadius: "30px",
                       }}
                     >
-                      <h3 style={{ marginLeft: "30px", paddingRight: "10px" }}>
+                      <h3
+                        style={{
+                          marginLeft: "30px",
+                          marginRight: "200px",
+                          background: "transparent",
+                        }}
+                      >
                         {index + 1}
                       </h3>
                       <img
@@ -207,16 +282,24 @@ const FavMain = () => {
                           borderRadius: "30%",
                           width: "64px",
                           height: "64px",
+                          background: "transparent",
                         }} // Adjust margin for the image
                       />
-                      <h3 className="h3" style={{ paddingRight: "20px" }}>
-                        {data.tracks[0]?.name || "N/A"}
+                      <h3
+                        className="h3"
+                        style={{
+                          paddingRight: "20px",
+                          background: "transparent",
+                        }}
+                      >
+                        {data.tracks[0]?.name || "No Favourites"}
                       </h3>
                       <div
                         style={{
                           marginLeft: "auto",
                           display: "flex",
                           marginRight: "15px",
+                          background: "transparent",
                         }}
                       >
                         {/* Move buttons to the right with margin */}
@@ -239,7 +322,7 @@ const FavMain = () => {
                           className="btn delete ms me-5"
                           onClick={() => handleDelete(user.id)}
                         >
-                          Delete
+                          Remove
                         </Button>
                       </div>
                     </ListGroup.Item>
@@ -249,7 +332,7 @@ const FavMain = () => {
                     // Default case when data is not available
                     <tr key={index}>
                       <td colSpan="4">
-                        <h3 className="h3">N/A</h3>
+                        <h3 className="h3">No Favourites</h3>
                       </td>
                     </tr>
                   )}
